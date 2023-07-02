@@ -1,0 +1,751 @@
+"'Time Sheet' As screen.'tabletAutoLayout_Sidebar_ver1.0'":
+
+    ScreenContainer1 As groupContainer.horizontalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Stretch
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =1
+
+        SidebarContainer1 As groupContainer.verticalAutoLayoutContainer:
+            Fill: =RGBA(9, 33, 98, 1)
+            FillPortions: =3
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =2
+
+            Label1 As label:
+                Color: =RGBA(255, 255, 255, 1)
+                Font: =Font.'Lato Black'
+                Height: =75
+                PaddingLeft: =40
+                PaddingTop: =35
+                Size: =20
+                Text: ="TimeSheets"
+                ZIndex: =1
+
+            Rectangle1_1 As rectangle:
+                BorderColor: =RGBA(215, 223, 240, 1)
+                BorderThickness: =2
+                Height: =1
+                Width: =Gallery1.TemplateWidth
+                Y: =79
+                ZIndex: =2
+
+            Gallery1 As gallery.galleryVertical:
+                DelayItemLoading: =true
+                FillPortions: =0
+                Height: |
+                    =600
+                Items: |-
+                    =Sort(
+                        Filter(
+                            Timesheets,
+                            Employee.Email = User().Email
+                        ),
+                        StartDate,
+                        SortOrder.Descending
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =180
+                LayoutMinWidth: =320
+                LoadingSpinner: =LoadingSpinner.Data
+                TemplateSize: =If(Self.Layout = Layout.Horizontal, Min(280, Self.Width - 60), Min(280, Self.Height - 520))
+                Width: =SidebarContainer1.Width
+                ZIndex: =3
+
+                lbl_DateRangeTimeSheets As label:
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    FontWeight: =FontWeight.Semibold
+                    OnSelect: =Select(Parent)
+                    Text: |-
+                        =$"{Text(
+                            ThisItem.StartDate,
+                            DateTimeFormat.UTC
+                        )} - {Text(
+                            ThisItem.EndDate,
+                            DateTimeFormat.UTC
+                        )}"
+                    Width: =Gallery1.TemplateWidth
+                    Y: =1
+                    ZIndex: =1
+
+                lbl_StatusTimeSheet As label:
+                    Color: =RGBA(255, 255, 255, 1)
+                    Font: =Font.'Lato Black'
+                    OnSelect: =Select(Parent)
+                    Text: |-
+                        ="Status: " & ThisItem.Status.Value
+                    Width: =Gallery1.TemplateWidth
+                    Y: =40
+                    ZIndex: =2
+
+                btn_OverlayTimeSheets As button:
+                    Fill: |-
+                        =If(
+                            ThisItem.ID=gblTimesheetCurrent.ID,
+                            RGBA(255, 255, 255, 0.15),
+                            Color.Transparent
+                        )
+                    Height: =80
+                    HoverFill: =RGBA(255, 255, 255, 0.15)
+                    OnSelect: |-
+                        =Set(
+                            gblTimesheetCurrent,
+                            ThisItem
+                        );
+                        ClearCollect(
+                            colTimesheetLines,
+                            Filter(
+                                'Timesheet Lines',
+                                'Timesheet ID' = gblTimesheetCurrent.ID
+                            )
+                        );
+                        Clear(colDeleteTimesheetLines)
+                    PressedFill: =RGBA(255, 255, 255, 0.15)
+                    Text: =""
+                    Width: =400
+                    ZIndex: =3
+
+                Rectangle1 As rectangle:
+                    BorderColor: =RGBA(215, 223, 240, 1)
+                    BorderThickness: =2
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Gallery1.TemplateWidth
+                    Y: =79
+                    ZIndex: =4
+
+            NewTimesheetContainer As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                LayoutGap: =10
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =10
+                PaddingTop: =10
+                Width: =SidebarContainer1.Width
+                ZIndex: =4
+
+                Icon4 As icon.AddDocument:
+                    Color: =RGBA(0, 120, 212, 1)
+                    Height: =40
+                    Icon: =Icon.AddDocument
+                    OnSelect: |-
+                        =Set(gblTimesheetCurrent, Blank());
+                        Clear(colDeleteTimesheetLines);
+                    Width: =40
+                    ZIndex: =1
+
+                Label2 As label:
+                    Color: =RGBA(255, 255, 255, 1)
+                    Size: =14
+                    Text: ="New Timesheet"
+                    ZIndex: =2
+
+        RightSideContainer1 As groupContainer.verticalAutoLayoutContainer:
+            FillPortions: =7
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            ZIndex: =3
+
+            HeaderContainer1 As groupContainer.horizontalAutoLayoutContainer:
+                FillPortions: =0
+                Height: =75
+                LayoutAlignItems: =LayoutAlignItems.End
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =40
+                ZIndex: =1
+
+                lbl_TimeSheetTitle As label:
+                    AlignInContainer: =AlignInContainer.End
+                    Font: =Font.'Lato Black'
+                    Size: =20
+                    Text: |-
+                        =If(
+                            IsBlank(gblTimesheetCurrent),
+                            "Create A New Timesheet",
+                            $"Timesheet: {Text(
+                                gblTimesheetCurrent.StartDate,
+                                DateTimeFormat.UTC
+                            )} - {Text(
+                                gblTimesheetCurrent.EndDate,
+                                DateTimeFormat.UTC
+                            )}"
+                        )
+                    Width: =HeaderContainer1.Width-100
+                    ZIndex: =1
+
+            HeaderContainer1_1 As groupContainer.horizontalAutoLayoutContainer:
+                FillPortions: =0
+                Height: =75
+                LayoutAlignItems: =LayoutAlignItems.Center
+                LayoutGap: =5
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =40
+                Visible: =!IsBlank(gblTimesheetCurrent)
+                ZIndex: =2
+
+                icon_NewLine As icon.Add:
+                    Color: =RGBA(0, 120, 212, 1)
+                    DisabledColor: =RGBA(128, 128, 128, 1)
+                    DisplayMode: |-
+                        =If(
+                            gblTimesheetCurrent.Status.Value="New",
+                            DisplayMode.Edit,
+                            DisplayMode.Disabled
+                        )
+                    Height: =32
+                    Icon: =Icon.AddLibrary
+                    OnSelect: |-
+                        =//Collect(colTimesheetLines,Defaults('Timesheet Lines'))
+                        Patch(
+                            colTimesheetLines,
+                            Defaults('Timesheet Lines'),
+                            {'Timesheet ID': gblTimesheetCurrent.ID}
+                        )
+                    Width: =32
+                    X: =40
+                    ZIndex: =1
+
+                lbl_Newline As label:
+                    DisplayMode: |-
+                        =If(
+                            gblTimesheetCurrent.Status.Value="New",
+                            DisplayMode.Edit,
+                            DisplayMode.Disabled
+                        )
+                    Text: ="New Line"
+                    ZIndex: =2
+
+                icon_Save As icon.Save:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =RGBA(0, 120, 212, 1)
+                    Height: =32
+                    Icon: =Icon.Save
+                    OnSelect: |-
+                        =// collection to update timesheet lines
+                        ClearCollect(
+                            colUpdateTimesheetLines,
+                            ForAll(
+                                gal_TimesheetLines.AllItems,
+                                'Timesheet Lines'@{
+                                    ID: ID,
+                                    'Timesheet ID': gblTimesheetCurrent.ID, // <----- NEW CODE
+                                    PayCode: drp_PayCode.Selected.Value,
+                                    Sunday: Value(txt_Sunday.Text),
+                                    Monday: Value(txt_Monday.Text),
+                                    Tuesday: Value(txt_Tuesday.Text),
+                                    Wednesday: Value(txt_Wednesday.Text),
+                                    Thursday: Value(txt_Thursday.Text),
+                                    Friday: Value(txt_Friday.Text),
+                                    Saturday: Value(txt_Saturday.Text)
+                                }
+                            )
+                        );
+                        
+                        // update timesheet lines and store the results
+                        ClearCollect(
+                            colTimesheetLines,
+                            Patch(
+                                'Timesheet Lines',
+                                gal_TimesheetLines.AllItems,
+                                colUpdateTimesheetLines
+                            )
+                        );
+                        
+                        
+                        // delete timesheet lines
+                        ForAll(
+                            colDeleteTimesheetLines,
+                            Remove(
+                                'Timesheet Lines',
+                                ThisRecord
+                            )
+                        );
+                        Clear(colDeleteTimesheetLines);
+                        
+                        // ***NEW CODE***
+                        
+                        // update total hours on timesheet record
+                        Set(
+                            gblTimesheetCurrent,
+                            Patch(
+                                Timesheets,
+                                gblTimesheetCurrent,
+                                {
+                                    TotalHours: Sum(
+                                        colUpdateTimesheetLines,
+                                        Sunday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Monday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Tuesday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Wednesday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Thursday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Friday
+                                    ) + Sum(
+                                        colUpdateTimesheetLines,
+                                        Saturday
+                                    )
+                                }
+                            )
+                        );
+                    ZIndex: =3
+
+                lbl_Save As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Text: ="Save"
+                    ZIndex: =4
+
+                Icon_Submit As icon.Send:
+                    Color: =RGBA(0, 120, 212, 1)
+                    Height: =32
+                    Icon: =Icon.Send
+                    OnSelect: |-
+                        =// update the timesheet status to submitted
+                        Set(
+                            gblTimesheetCurrent,
+                            Patch(
+                                Timesheets,
+                                gblTimesheetCurrent,
+                                {Status: {Value: "Submitted"}}
+                            )
+                        );
+                        // save the timesheet lines
+                        Select(icon_Save);
+                    ZIndex: =5
+
+                lbl_Submit As label:
+                    Text: ="Submit"
+                    ZIndex: =6
+
+                Icon_Delete As icon.Trash:
+                    Color: =RGBA(0, 120, 212, 1)
+                    Height: =32
+                    Icon: =Icon.Trash
+                    OnSelect: |-
+                        =ForAll(
+                            gal_TimesheetLines.AllItems,
+                            Remove(
+                                'Timesheet Lines',
+                                {ID: ThisRecord.ID}
+                            )    
+                        );
+                        Clear(colDeleteTimesheetLines);
+                        Remove(
+                            Timesheets,
+                            gblTimesheetCurrent
+                        );
+                        Set(
+                            gblTimesheetCurrent,
+                            Blank()
+                        )
+                    ZIndex: =7
+
+                lbl_Delete As label:
+                    Text: ="Delete"
+                    ZIndex: =8
+
+            MainSectionContainer1 As groupContainer.verticalAutoLayoutContainer:
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                PaddingLeft: =5
+                ZIndex: =3
+
+                TimesheetHeaderContainer As groupContainer.horizontalAutoLayoutContainer:
+                    LayoutGap: =22
+                    LayoutMinHeight: =40
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingLeft: =30
+                    Visible: =!IsBlank(gblTimesheetCurrent)
+                    ZIndex: =2
+
+                    lbl_PayCode As label:
+                        Text: ="ProjectCode"
+                        Width: =110
+                        ZIndex: =1
+
+                    lbl_clientName As label:
+                        Align: =Align.Center
+                        Text: ="clientName"
+                        ZIndex: =2
+
+                    lbl_Sunday As label:
+                        Align: =Align.Center
+                        Text: ="Sun"
+                        Width: =50
+                        ZIndex: =3
+
+                    lbl_Monday As label:
+                        Align: =Align.Center
+                        Text: ="Mon"
+                        Width: =50
+                        ZIndex: =4
+
+                    lbl_Tuesday As label:
+                        Align: =Align.Center
+                        Text: ="Tue"
+                        Width: =50
+                        ZIndex: =5
+
+                    lbl_Wednesday As label:
+                        Align: =Align.Center
+                        Text: ="Wed"
+                        Width: =50
+                        ZIndex: =6
+
+                    lbl_Thursday As label:
+                        Align: =Align.Center
+                        Text: ="Thu"
+                        Width: =50
+                        ZIndex: =7
+
+                    lbl_Friday As label:
+                        Align: =Align.Center
+                        Text: ="Fri"
+                        Width: =50
+                        ZIndex: =8
+
+                    lbl_Saturday As label:
+                        Align: =Align.Center
+                        Text: ="Sat"
+                        Width: =50
+                        ZIndex: =9
+
+                    lbl_TotalHours As label:
+                        Align: =Align.Center
+                        Text: ="TotalHours"
+                        Width: =100
+                        ZIndex: =10
+
+                Container2 As groupContainer.manualLayoutContainer:
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    Visible: =IsBlank(gblTimesheetCurrent)
+                    ZIndex: =7
+
+                    Label4 As label:
+                        Font: =Font.'Lato Black'
+                        Size: =18
+                        Text: ="Select Timesheet Week"
+                        VerticalAlign: =VerticalAlign.Bottom
+                        Visible: =IsBlank(gblTimesheetCurrent)
+                        Width: =300
+                        X: =40
+                        Y: =40
+                        ZIndex: =1
+
+                    dte_TimesheetWeek As datepicker:
+                        PaddingLeft: =5
+                        PaddingTop: =5
+                        Visible: =IsBlank(gblTimesheetCurrent)
+                        X: =40
+                        Y: =80
+                        ZIndex: =2
+
+                    Label5 As label:
+                        Text: =""
+                        Visible: =IsBlank(gblTimesheetCurrent)
+                        X: =40
+                        Y: =135
+                        ZIndex: =3
+
+                    Button1 As button:
+                        Fill: =RGBA(0, 120, 212, 1)
+                        Font: =Font.'Lato Black'
+                        OnSelect: |-
+                            =// create a new timesheet and store the result
+                            Set(
+                                gblTimesheetCurrent,
+                                Patch(
+                                    Timesheets,
+                                    Defaults(Timesheets),
+                                    {
+                            
+                                        // set timesheet employee to current user
+                                        Employee: {
+                                            '@odata.type':"#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                            ODataType: Blank(),
+                                            Claims: $"i:0#.f|membership|{User().Email}",
+                                            Department: "",
+                                            DisplayName: User().FullName,
+                                            Email: User().Email,
+                                            JobTitle: "",
+                                            Picture: ""
+                                        },
+                            
+                            
+                                        // set start date to Sunday of the selected week
+                                        StartDate: DateAdd(dte_TimesheetWeek.SelectedDate,1-Weekday(dte_TimesheetWeek.SelectedDate,StartOfWeek.Sunday),TimeUnit.Days),
+                            
+                                        // set end date to Saturday of the selected week
+                                        EndDate: DateAdd(dte_TimesheetWeek.SelectedDate,1-Weekday(dte_TimesheetWeek.SelectedDate,StartOfWeek.Sunday)+6,TimeUnit.Days),
+                            
+                                        Status: {Value: "New"},
+                                        TotalHours: 0
+                                    }
+                                )
+                            );
+                            // create the first timesheet line
+                            ClearCollect(
+                                colTimesheetLines,
+                                Patch(
+                                    'Timesheet Lines',
+                                    Defaults('Timesheet Lines'),
+                                    {'Timesheet ID': gblTimesheetCurrent.ID}
+                                )
+                            );
+                            // reset date picker to blank
+                            Reset(dte_TimesheetWeek)
+                        Text: ="Next"
+                        Visible: =IsBlank(gblTimesheetCurrent)
+                        X: =40
+                        Y: =190
+                        ZIndex: =4
+
+    gal_TimesheetLines As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =427
+        Items: =colTimesheetLines
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =// collection to update timesheet lines
+            ClearCollect(
+                colUpdateTimesheetLines,
+                ForAll(
+                    gal_TimesheetLines.AllItems,
+                    'Timesheet Lines'@{
+                        ID: ID,
+                        PayCode: drp_PayCode.Selected.Value,
+                        Sunday: Value(txt_Sunday.Text),
+                        Monday: Value(txt_Monday.Text),
+                        Tuesday: Value(txt_Tuesday.Text),
+                        Wednesday: Value(txt_Wednesday.Text),
+                        Thursday: Value(txt_Thursday.Text),
+                        Friday: Value(txt_Friday.Text),
+                        Saturday: Value(txt_Saturday.Text)
+                    }
+                )
+            );
+            
+            // update timesheet lines and store the results
+            ClearCollect(
+                colTimesheetLines,
+                Patch(
+                    'Timesheet Lines',
+                    gal_TimesheetLines.AllItems,
+                    colUpdateTimesheetLines
+                )
+            );
+            
+            // delete timesheet lines
+            ForAll(
+                colDeleteTimesheetLines,
+                Remove(
+                    'Timesheet Lines',
+                    ThisRecord
+                )
+            );
+            Clear(colDeleteTimesheetLines);
+        TemplatePadding: =0
+        TemplateSize: =82
+        Visible: =!IsBlank(gblTimesheetCurrent)
+        Width: =947
+        X: =415
+        Y: =193
+        ZIndex: =1
+
+        drp_PayCode As dropdown:
+            AllowEmptySelection: =true
+            Default: =ThisItem.PayCode
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            Items: =Distinct(ProjectCode,Title)
+            Width: =150
+            Y: =22
+            ZIndex: =1
+
+        txt_Sunday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Sunday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Sunday.Width
+            X: =lbl_Sunday.X
+            Y: =22
+            ZIndex: =2
+
+        txt_Monday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Monday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Monday.Width
+            X: =lbl_Monday.X
+            Y: =22
+            ZIndex: =3
+
+        txt_Tuesday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Tuesday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Tuesday.Width
+            X: =lbl_Tuesday.X
+            Y: =22
+            ZIndex: =4
+
+        txt_Wednesday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Wednesday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Wednesday.Width
+            X: =lbl_Wednesday.X
+            Y: =22
+            ZIndex: =5
+
+        txt_Thursday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Thursday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Thursday.Width
+            X: =lbl_Thursday.X
+            Y: =22
+            ZIndex: =6
+
+        txt_Friday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Friday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Friday.Width
+            X: =lbl_Friday.X
+            Y: =22
+            ZIndex: =7
+
+        txt_Saturday As text:
+            Align: =Align.Center
+            Default: =ThisItem.Saturday
+            DisplayMode: |-
+                =If(
+                    gblTimesheetCurrent.Status.Value="New",
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            PaddingLeft: =5
+            Width: =lbl_Saturday.Width
+            X: =lbl_Saturday.X
+            Y: =22
+            ZIndex: =8
+
+        lbl_TotlHours As label:
+            Align: =Align.Center
+            Text: |-
+                =Coalesce(
+                    Sum(
+                        Value(txt_Sunday.Text),
+                        Value(txt_Monday.Text),
+                        Value(txt_Tuesday.Text),
+                        Value(txt_Wednesday.Text),
+                        Value(txt_Thursday.Text),
+                        Value(txt_Friday.Text),
+                        Value(txt_Saturday.Text)
+                    ),
+                    0
+                )
+            Width: =lbl_TotalHours.Width
+            X: =lbl_TotalHours.X
+            Y: =22
+            ZIndex: =9
+
+        Icon2 As icon.Trash:
+            Color: =RGBA(0, 120, 212, 1)
+            Height: =40
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =Remove(
+                    colTimesheetLines,
+                    ThisItem
+                );
+                If(
+                    !IsBlank(ThisItem.ID),
+                    Collect(
+                        colDeleteTimesheetLines,
+                        ThisItem
+                    );
+                )
+            Visible: =gblTimesheetCurrent.Status.Value="New"
+            Width: =40
+            X: =907
+            Y: =22
+            ZIndex: =10
+
+        lbl_ClientName As label:
+            Align: =Align.Center
+            Size: =9
+            Text: =LookUp(ProjectCode,Title=drp_PayCode.Selected.Value).ClientName.Value
+            Width: =lbl_clientName.X
+            X: =lbl_clientName.X
+            Y: =22
+            ZIndex: =11
+

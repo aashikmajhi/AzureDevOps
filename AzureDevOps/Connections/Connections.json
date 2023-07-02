@@ -1,0 +1,39 @@
+{
+  "630e0511-3ad0-4a0d-a5a7-26e5b891e473": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3310/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://skypondtech.sharepoint.com/sites/SkyPondPowerAppsProject": {
+        "dataSources": {
+          "ProjectCode": {
+            "tableName": "b6e29a6c-db49-47c2-9b14-31debd71e645"
+          }
+        }
+      },
+      "https://skypondtech.sharepoint.com/sites/TestSite": {
+        "dataSources": {
+          "Timesheet Lines": {
+            "tableName": "1ef51818-5a61-440c-8c6d-5d51d982d176"
+          },
+          "Timesheets": {
+            "tableName": "b114c663-160b-448b-95ff-fd15c2cd5450"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Timesheet Lines",
+      "Timesheets",
+      "ProjectCode"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "630e0511-3ad0-4a0d-a5a7-26e5b891e473"
+  }
+}
