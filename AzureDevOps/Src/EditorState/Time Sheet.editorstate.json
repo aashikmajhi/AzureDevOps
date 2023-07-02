@@ -2517,7 +2517,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Icon_Delete",
-      "ParentIndex": 7,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2776,7 +2776,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icon_NewLine",
-      "ParentIndex": 4,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3007,7 +3007,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "icon_Save",
-      "ParentIndex": 5,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3231,7 +3231,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Icon_Submit",
-      "ParentIndex": 6,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5474,7 +5474,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_ClientName",
-      "ParentIndex": 2,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6089,7 +6089,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_Delete",
-      "ParentIndex": 3,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7024,7 +7024,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_Newline",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7959,7 +7959,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_Save",
-      "ParentIndex": 1,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8562,7 +8562,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_Submit",
-      "ParentIndex": 2,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10144,7 +10144,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TotlHours",
-      "ParentIndex": 10,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12833,7 +12833,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Friday",
-      "ParentIndex": 8,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13143,7 +13143,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Monday",
-      "ParentIndex": 4,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13453,7 +13453,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Saturday",
-      "ParentIndex": 9,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -13763,7 +13763,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Sunday",
-      "ParentIndex": 3,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14073,7 +14073,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Thursday",
-      "ParentIndex": 7,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14383,7 +14383,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Tuesday",
-      "ParentIndex": 5,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -14693,7 +14693,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Wednesday",
-      "ParentIndex": 6,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

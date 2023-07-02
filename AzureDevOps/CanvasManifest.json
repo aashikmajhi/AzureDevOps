@@ -115,12 +115,12 @@
     "InstrumentationKey": "",
     "LocalDatabaseReferences": "{}",
     "ManualOfflineProfileId": "",
-    "Name": "TimeSheet App",
+    "Name": "Test App",
     "OriginatingVersion": "1.332",
     "ParserErrorCount": 0
   },
   "PublishInfo": {
-    "AppName": "TimeSheet App",
+    "AppName": "Test App",
     "BackgroundColor": "RGBA(0,176,240,1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "Edit",
